@@ -33,52 +33,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- 🔍 SEARCH BOX -->
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/searchCard"
-        android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="20dp"
-        app:cardBackgroundColor="#FFFFFF"
-        app:cardCornerRadius="28dp"
-        app:cardElevation="6dp"
-        app:strokeColor="#E0E0E0"
-        app:strokeWidth="1dp"
-        app:layout_constraintTop_toBottomOf="@id/topAppBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingHorizontal="16dp">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_search"
-                app:tint="#4CAF50"/>
-
-            <EditText
-                android:id="@+id/etSearch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:background="@android:color/transparent"
-                android:hint="Cari kontak..."
-                android:textColor="#222222"
-                android:textColorHint="#9E9E9E"
-                android:textSize="16sp"
-                android:singleLine="true"/>
-
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
     <!-- 📦 NAVIGATION HOST -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment"
@@ -88,24 +42,41 @@
         android:layout_marginTop="16dp"
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph"
-        app:layout_constraintTop_toBottomOf="@id/searchCard"
-        app:layout_constraintBottom_toTopOf="@id/bottom_nav"
+        app:layout_constraintTop_toBottomOf="@id/topAppBar"
+        app:layout_constraintBottom_toTopOf="@id/navCard"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- 🔽 BOTTOM NAVIGATION -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav"
+    <!-- 🔽 MODERN BOTTOM NAVIGATION -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/navCard"
         android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:background="@drawable/bg_bottom_nav_green"
-        app:itemIconTint="@color/nav_item_color"
-        app:itemTextColor="@color/nav_item_color"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/menu_bottom"
-        app:elevation="12dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="10dp"
+        app:strokeColor="#EEEEEE"
+        app:strokeWidth="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            app:itemIconSize="28dp"
+            app:itemIconTint="@color/nav_item_color"
+            app:itemRippleColor="#DFF5E3"
+            app:itemTextColor="@color/nav_item_color"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/menu_bottom"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

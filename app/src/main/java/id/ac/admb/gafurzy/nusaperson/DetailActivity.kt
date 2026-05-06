@@ -1,5 +1,6 @@
 package id.ac.admb.gafurzy.nusaperson.ui.detail
 
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -22,11 +23,24 @@ class DetailActivity : AppCompatActivity() {
             finish()
         }
 
-        // 📦 Ambil data person
-        val person = intent.getSerializableExtra("person") as PersonItem
+        // 📦 Ambil data person (fix deprecated)
+        val person = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+
+            intent.getSerializableExtra(
+                "person",
+                PersonItem::class.java
+            )
+
+        } else {
+
+            @Suppress("DEPRECATION")
+            intent.getSerializableExtra("person") as PersonItem
+        }
 
         // 📄 Tampilkan data
-        showData(person)
+        person?.let {
+            showData(it)
+        }
     }
 
     private fun showData(person: PersonItem) {
