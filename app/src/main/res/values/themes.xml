@@ -1,0 +1,20 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Base.Theme.NusaPerson" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <!-- 🔥 WARNA UTAMA -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- 🔥 PENTING UNTUK TOOLBAR -->
+        <item name="colorSurface">@color/purple_500</item>
+        <item name="colorOnSurface">@color/white</item>
+
+        <!-- STATUS BAR -->
+        <item name="android:statusBarColor">@color/purple_700</item>
+
+    </style>
+
+    <style name="Theme.NusaPerson" parent="Base.Theme.NusaPerson"/>
+
+</resources>
