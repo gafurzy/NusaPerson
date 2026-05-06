@@ -11,5 +11,5 @@ data class PersonItem(
     val gender: String,
     val website: String,
     val image: String,
-    val address: Address   // ✅ pakai Address buatan kita
+    val address: Address
 ) : Serializable
