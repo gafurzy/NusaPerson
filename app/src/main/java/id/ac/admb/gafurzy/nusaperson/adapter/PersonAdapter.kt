@@ -39,7 +39,7 @@ class PersonAdapter(
 
         val data = list[position]
 
-        // 👤 Nama
+        // 👤 Nama Lengkap
         holder.binding.tvName.text =
             "${data.firstname} ${data.lastname}"
 
@@ -47,15 +47,23 @@ class PersonAdapter(
         holder.binding.tvEmail.text =
             data.email
 
-        // 🖼 Foto
+        // 🚻 Gender
+        holder.binding.tvGender.text =
+            data.gender.replaceFirstChar {
+                it.uppercase()
+            }
+
+        // 🖼 FOTO API DICEBEAR
         Glide.with(holder.itemView.context)
-            .load(data.image)
+            .load(
+                "https://api.dicebear.com/7.x/adventurer/png?seed=${data.firstname}"
+            )
             .placeholder(R.drawable.ic_profile_placeholder)
             .error(R.drawable.ic_profile_placeholder)
             .circleCrop()
             .into(holder.binding.imgProfile)
 
-        // 👆 Click ke detail
+        // 👆 Klik item ke detail
         holder.itemView.setOnClickListener {
             onClick(data)
         }

@@ -59,6 +59,17 @@
                 android:textColor="#757575"
                 android:textSize="14sp"/>
 
+            <!-- 🚻 GENDER -->
+            <TextView
+                android:id="@+id/tvGender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Male"
+                android:textColor="#4CAF50"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+
         </LinearLayout>
 
         <!-- ➜ ICON -->

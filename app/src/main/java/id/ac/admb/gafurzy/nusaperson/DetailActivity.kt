@@ -23,7 +23,7 @@ class DetailActivity : AppCompatActivity() {
             finish()
         }
 
-        // 📦 Ambil data person (fix deprecated)
+        // 📦 Ambil data person
         val person = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
 
             intent.getSerializableExtra(
@@ -78,9 +78,11 @@ class DetailActivity : AppCompatActivity() {
                     "${person.address.country} " +
                     "(${person.address.zipcode})"
 
-        // 🖼 FOTO PROFILE
+        // 🖼 FOTO PROFILE DARI API DICEBEAR
         Glide.with(this)
-            .load(person.image)
+            .load(
+                "https://api.dicebear.com/7.x/adventurer/png?seed=${person.firstname}"
+            )
             .placeholder(R.drawable.ic_profile_placeholder)
             .error(R.drawable.ic_profile_placeholder)
             .circleCrop()
