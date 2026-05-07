@@ -7,6 +7,8 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.ac.admb.gafurzy.nusaperson.adapter.PersonAdapter
@@ -29,6 +31,12 @@ class HomeFragment : Fragment() {
     private var personList = mutableListOf<PersonItem>()
     private var filteredList = mutableListOf<PersonItem>()
 
+    // 🚻 FILTER GENDER
+    private var selectedGender = "male"
+
+    // 🔢 FILTER LIMIT
+    private var selectedLimit = 10
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,7 +48,7 @@ class HomeFragment : Fragment() {
         binding.recyclerView.layoutManager =
             LinearLayoutManager(requireContext())
 
-        // 🔍 Listener Search
+        // 🔍 SEARCH LISTENER
         binding.etSearch.addTextChangedListener(object : TextWatcher {
 
             override fun beforeTextChanged(
@@ -63,17 +71,107 @@ class HomeFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        getData()
+        // 🎛 SETUP FILTER
+        setupFilter()
+
+        // 📡 LOAD DATA
+        getData(selectedLimit, selectedGender)
 
         return binding.root
     }
 
-    private fun getData() {
+    // 🎛 FILTER SPINNER
+    private fun setupFilter() {
+
+        // 🚻 GENDER
+        val genderList = listOf(
+            "male",
+            "female"
+        )
+
+        val genderAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_dropdown_item,
+            genderList
+        )
+
+        binding.spGender.adapter = genderAdapter
+
+        binding.spGender.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+
+                    selectedGender = genderList[position]
+
+                    getData(
+                        selectedLimit,
+                        selectedGender
+                    )
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
+
+        // 🔢 LIMIT
+        val limitList = listOf(
+            5,
+            10,
+            20,
+            50
+        )
+
+        val limitAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_dropdown_item,
+            limitList
+        )
+
+        binding.spLimit.adapter = limitAdapter
+
+        binding.spLimit.setSelection(1)
+
+        binding.spLimit.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+
+                    selectedLimit = limitList[position]
+
+                    getData(
+                        selectedLimit,
+                        selectedGender
+                    )
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
+    }
+
+    // 📡 GET DATA API
+    private fun getData(
+        limit: Int,
+        gender: String
+    ) {
 
         binding.progressBar.visibility = View.VISIBLE
 
         ApiConfig.getApiService()
-            .getPersons(10, "id_ID", "male")
+            .getPersons(
+                limit,
+                "id_ID",
+                gender
+            )
             .enqueue(object : Callback<PersonResponse> {
 
                 override fun onResponse(
@@ -85,22 +183,28 @@ class HomeFragment : Fragment() {
 
                     if (response.isSuccessful) {
 
-                        val data = response.body()?.data ?: emptyList()
+                        val data =
+                            response.body()?.data ?: emptyList()
 
-                        // ✅ simpan data asli
+                        // ✅ SIMPAN DATA ASLI
                         personList.clear()
                         personList.addAll(data)
 
-                        // ✅ tampilkan data awal
+                        // ✅ FILTERED LIST
                         filteredList.clear()
                         filteredList.addAll(personList)
 
                         adapter = PersonAdapter(filteredList) { person ->
 
-                            val intent =
-                                Intent(requireContext(), DetailActivity::class.java)
+                            val intent = Intent(
+                                requireContext(),
+                                DetailActivity::class.java
+                            )
 
-                            intent.putExtra("person", person)
+                            intent.putExtra(
+                                "person",
+                                person
+                            )
 
                             startActivity(intent)
                         }
@@ -119,7 +223,7 @@ class HomeFragment : Fragment() {
             })
     }
 
-    // 🔍 Fungsi Filter Search
+    // 🔍 SEARCH FILTER
     private fun filterData(keyword: String) {
 
         filteredList.clear()

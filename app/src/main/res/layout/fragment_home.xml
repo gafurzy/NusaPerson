@@ -15,7 +15,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="10dp"
         app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="28dp"
         app:cardElevation="6dp"
@@ -51,6 +51,34 @@
 
     </com.google.android.material.card.MaterialCardView>
 
+    <!-- 🎛 FILTER -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="10dp">
+
+        <!-- 🚻 FILTER GENDER -->
+        <Spinner
+            android:id="@+id/spGender"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_spinner"/>
+
+        <!-- 🔢 FILTER LIMIT -->
+        <Spinner
+            android:id="@+id/spLimit"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_spinner"/>
+
+    </LinearLayout>
+
     <!-- ⏳ PROGRESS BAR -->
     <ProgressBar
         android:id="@+id/progressBar"
@@ -64,6 +92,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="8dp"/>
+        android:paddingBottom="8dp"
+        android:clipToPadding="false"/>
 
 </LinearLayout>
